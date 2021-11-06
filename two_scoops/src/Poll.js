@@ -1,34 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { getPollDetails } from './api';
+import { getChoices } from './api';
 
 const Poll = () => {
-    const { pollId } = useParams();
-    
-    const [poll, setPoll] = useState(null);
+    const [choices, setChoices] = useState(null);
 
     useEffect(() => {
-        getPollDetails(Number(pollId))
-            .then(poll_ => setPoll(poll_));
+        getChoices()
+            .then(choices_ => setChoices(choices_));
+    }, []);
 
-        return () => setPoll(null);
-    }, [ pollId ]);
-
-    if (!poll) {
+    if (!choices) {
         return 'Загружаемся...';
     }
 
     return <div>
-        <b>{ poll.title }</b>
-        { poll.items.map(item => {
+        <b>Что лучше?</b>
+        { choices.map(item => {
             return <div key={ item.id }>
-                <label>
-                    <input type="radio" name="poll" value={ item.id } />
-                    { item.text }
-                </label>
+                { item.text }
             </div>
         })}
+
+        <div style={{ marginTop: '66px' }}>
+            <Link className="App-link" to="choices/add">Добавить свой вариант ответа</Link>
+        </div>
     </div>
 }
 

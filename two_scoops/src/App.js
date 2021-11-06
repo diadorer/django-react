@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Poll from './Poll';
-import Polls from './Polls';
+import ChoiceCreator from './ChoiceCreator';
 
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -12,8 +11,8 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={ <Polls /> } />
-            <Route path="polls/:pollId" element={ <Poll /> } />
+            <Route path="/" element={ <Poll /> } />
+            <Route path="choices/add" element={ <ChoiceCreator /> } />
           </Routes>
         </BrowserRouter>
       </header>
